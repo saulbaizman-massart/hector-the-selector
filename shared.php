@@ -4,7 +4,7 @@ define ( 'TREE', 'tree.txt' ) ;
 define ( 'TASKS', 'tasks.json' ) ;
 
 if ( file_exists ( TREE ) ) {
-    // load the tree into a string
+    // Load the tree into a string.
     $tree_contents = file ( TREE ) ;
 
 }
@@ -13,7 +13,7 @@ else {
 }
 
 if ( file_exists ( TASKS ) ) {
-    // load the tree into a string
+    // Load the tasks JSON into a string and then decode it, saving it as an object.
     $tasks = file_get_contents ( TASKS ) ;
     $tasks_json = json_decode ( $tasks ) ;
 }

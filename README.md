@@ -9,5 +9,5 @@ This is an interactive web application to test students' knowledge of CSS select
 
 ## configuration
 
-+ **clues.json.** This file contains the clues and correct selectors.
-+ **tree.json.** This file contains the tree of HTML elements.
++ **tasks.json.** This file contains the tasks, line numbers, and correct selectors.
++ **tree.txt.** This file contains the tree of HTML elements, indented with tabs.

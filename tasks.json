@@ -1,0 +1,65 @@
+{
+    "tasks":
+    [
+        {
+            "task": "Create a type selector to target all paragraphs.",
+            "selector": "p",
+            "line_numbers": ["6","7","8","10","11","12","13","24","25","26"]
+        },
+        {
+            "task": "Create a type selector to target all headings.",
+            "selector": "h1, h2, h2",
+            "line_numbers": ["5","9","14"]
+        },
+        {
+            "task": "Create an ID selector to target the element with an ID of \"sidebar.\"",
+            "selector": "#sidebar",
+            "line_numbers": ["22"]
+        },
+        {
+            "task": "Create a class selector to target all elements with a class of \"resources.\"",
+            "selector": ".resources",
+            "line_numbers": ["15","29","37","43"]
+        },
+        {
+            "task": "Create a class selector to target all list items with a class of \"special.\"",
+            "selector": "li.special",
+            "line_numbers": ["20","32","39","44"]
+        },
+        {
+            "task": "Create a class selector to target the list item with a class of \"special\" and \"call_to_action\".",
+            "selector": "li.special.call_to_action",
+            "line_numbers": ["44"]
+        },
+        {
+            "task": "Create a child selector to target list items with a class of \"special\" whose parents are unordered lists.",
+            "selector": "ul > li.special",
+            "line_numbers": ["20","32","39","44"]
+        },
+        {
+            "task": "Create a descendant selector to target all unordered lists of the footer.",
+            "selector": "footer ul",
+            "line_numbers": ["29","37","43"]
+        },
+        {
+            "task": "Create a child selector to target the div with a class of \"left\" and the div with a class of \"right\".",
+            "selector": "div.left, div.right",
+            "line_numbers": ["28","42"]
+        },
+        {
+            "task": "Create an adjacent sibling selector to target the first line of the first paragraph following heading 1 elements.",
+            "selector": "h1 + p::first-line",
+            "line_numbers": ["6","24"]
+        },
+        {
+            "task": "Create a selector for the hover state of list items for an unordered list with a class of \"resources\" that's a child of a div with a class of \"middle\".",
+            "selector": "div.middle ul.resources li:hover",
+            "line_numbers": ["38","39","40","41"]
+        },
+        {
+            "task": "Create a space selector to target a list item with a class of \"call_to_action\".",
+            "selector": "li[class~=\"call_to_action\"]",
+            "line_numbers": ["44"]
+        }
+    ]
+}

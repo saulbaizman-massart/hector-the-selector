@@ -1,0 +1,47 @@
+html
+	body
+		article
+			section id="main"
+				h1
+				p
+				p
+				p
+				h2
+				p
+				p
+				p
+				p
+				h3
+				ul class="resources"
+					li
+					li
+					li
+					li
+					li class="special"
+					li
+			section id="sidebar"
+				h1
+				p
+				p
+				p
+		footer
+			div class="left"
+				ul class="resources"
+					li
+					li
+					li class="special"
+					li
+					li
+					li
+			div class="middle"
+				ul class="resources"
+					li
+					li class="special"
+					li
+					li
+			div class="right"
+				ul class="resources"
+					li class="special call_to_action third_class fourth_class"
+					li
+					li
+					li

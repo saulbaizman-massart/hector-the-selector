@@ -8,7 +8,7 @@
         },
         {
             "task": "Create a type selector to target all headings.",
-            "selector": "h1, h2, h2",
+            "selector": "h1, h2, h3",
             "line_numbers": ["5","9","14"]
         },
         {
@@ -43,7 +43,7 @@
         },
         {
             "task": "Create a child selector to target the div with a class of \"left\" and the div with a class of \"right\".",
-            "selector": "div.left, div.right",
+            "selector": "footer > div.left, footer > div.right",
             "line_numbers": ["28","42"]
         },
         {

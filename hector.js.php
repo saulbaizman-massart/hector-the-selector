@@ -35,13 +35,11 @@ foreach ( $tasks_json->tasks as $task ) {
     $selector = $task->selector ;
     $lines = $task->line_numbers ;
 
-    // FIXME: revisit stripping double quotes from task description
-    // FIXME: revisit stripping double quotes from selector, which makes it incorrect
     printf ( 
         'tasks[%1$d] = { "description": "%2$s", "selector": "%3$s", "lines": [ %4$s ] } ; ' . PHP_EOL, 
         $task_counter, // array index 
-        str_replace('"', "", $task_description ), // description
-        str_replace('"', "", $selector ), // selector (answer)
+        str_replace('"', '\"', $task_description ), // description, with double quotes escaped
+        str_replace('"', '\"', $selector ), // selector (answer)
         implode ( ',', $lines ) // array of line numbers
     ) ;
 

@@ -34,13 +34,20 @@ foreach ( $tasks_json->tasks as $task ) {
     $task_description = $task->task ;
     $selector = $task->selector ;
     $lines = $task->line_numbers ;
+    if ( $task->help ) {
+        $help_text = $task->help ;
+    }
+    else {
+        $help_text = '' ;
+    }
 
     printf ( 
-        'tasks[%1$d] = { "description": "%2$s", "selector": "%3$s", "lines": [ %4$s ] } ; ' . PHP_EOL, 
+        'tasks[%1$d] = { "description": "%2$s", "selector": "%3$s", "lines": [ %4$s ], "help": "%5$s" } ; ' . PHP_EOL, 
         $task_counter, // array index 
         str_replace('"', '\"', $task_description ), // description, with double quotes escaped
         str_replace('"', '\"', $selector ), // selector (answer)
-        implode ( ',', $lines ) // array of line numbers
+        implode ( ',', $lines ), // array of line numbers
+        str_replace('"', '\"', $help_text )
     ) ;
 
     $task_counter++ ;

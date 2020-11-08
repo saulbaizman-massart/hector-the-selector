@@ -1,3 +1,16 @@
+<!--
+
+[ Repl comments ]
+
+DO NOT MODIFY THIS REPL. If you do, I will be very sad.
+
+** Instructions **
+
++ Click the Run button.
++ Click the tiny icon to open the browser frame in a new window.
++ Have at it.
+
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>

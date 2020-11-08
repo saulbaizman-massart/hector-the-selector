@@ -52,6 +52,9 @@ let correct_answers = [] ;
 
 jQuery(document).ready ( function ( ) {
     
+    // Default to highlighting the first task. Issue #8.
+    choose_task ( 0 ) ;
+
     // Attach keypress listener to input field to detect pressing the Return key.
     jQuery('input#selector').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);

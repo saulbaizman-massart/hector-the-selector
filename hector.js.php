@@ -90,7 +90,7 @@ function validate_selector ( ) {
 
         let user_selector = jQuery('input#selector').val() ;
         if ( debug ) {
-            console.log ( 'user selector:', user_selector ) ;
+            console.log ( 'user input:', user_selector ) ;
         }
 
         if (! user_selector ) {
@@ -127,6 +127,9 @@ function validate_selector ( ) {
             correct_answers[current_task_number] = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ; // This is the nicely formatted version, with appropriate spacing.
             // Change the CSS class for the task to completed.
             jQuery ( 'div#tasks p.task_' + current_task_number ).addClass ( 'completed' ) ;
+            if ( debug ) {
+                console.log ('The user has entered a correct answer.') ;
+            }
         }
         // Incorrect answer.
         else {
@@ -134,6 +137,9 @@ function validate_selector ( ) {
             alert ( 'Not quite. Try again!' ) ;
             // Clear the field? Eh, no, leave it alone.
             // In fact, maybe we save and list the history of incorrect attempts.
+            if ( debug ) {
+                console.log ('The user has entered an incorrect answer.') ;
+            }
         }
 
     }

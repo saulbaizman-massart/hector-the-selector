@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="hector.css" tyep="text/css">
 </head>
 <body>
+    <!-- <div id="minimap"></div> -->
     <h1>hector the selector</h1>
 
     <?php
 
     require_once ('shared.php') ;
-
-
 
     ?>
     <div id="main">
@@ -78,6 +77,7 @@
         </div>
 
     </div>
+    <p class="beta_tester">Thanks to Chloe A. for beta testing.</p>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

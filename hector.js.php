@@ -78,7 +78,7 @@ Validate the selector.
 function validate_selector ( ) {
     if ( current_task_number >= 0 ) {
         if ( debug ) {
-            console.log ( 'validate button clicked') ;
+            console.log ( 'validate button clicked or enter has been pressed') ;
         }
 
         let user_selector = jQuery('input#selector').val() ;

@@ -75,12 +75,18 @@ jQuery(document).ready ( function ( ) {
             // https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
             // Condense all spaces into one space from user input, and lowercase the input. And strip whitespace.
             user_selector = user_selector.toLowerCase().replace(/  +/g, ' ').trim() ;
+            // Sanitize special selector characters.
+            user_selector = sanitize_selector_chars ( user_selector ) ;
+
+            // replace ' + ' with '+' and ' > ' with '>'
             if ( debug ) {
                 console.log ('user_selector:',user_selector) ;
             }
 
             // Condense all spaces into one space from the correct answer, and lowercase the correct answer. And strip whitespace.
             let correct_answer = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ;
+            // Sanitize special selector characters.
+            correct_answer = sanitize_selector_chars ( correct_answer ) ;
             if ( debug ) {
                 console.log ('correct_answer:',correct_answer) ;
             }
@@ -92,7 +98,7 @@ jQuery(document).ready ( function ( ) {
             if ( user_selector == correct_answer ) {
                 // FIXME: create an animated green checkmark in the center of the screen.
                 alert ( "That's correct. Nice job!" ) ;
-                correct_answers[current_task_number] = user_selector ;
+                correct_answers[current_task_number] = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ; // This is the nicely formatted version, with appropriate spacing.
                 // Change the CSS class for the task to completed.
                 jQuery ( 'div#tasks p.task_' + current_task_number ).addClass ( 'completed' ) ;
             }
@@ -116,8 +122,6 @@ jQuery(document).ready ( function ( ) {
 Choose a task.
 */
 function choose_task ( task_number ) {
-
-    current_task_number = task_number ;
 
     if ( debug ) {
         console.log ("requested task:", task_number) ;
@@ -148,12 +152,17 @@ function choose_task ( task_number ) {
     }
 
     // Clear the input field.
-    jQuery('input#selector').val( '' ) ;
+    // Without the if statement, if someone fills in the field before choosing a task, when a task is chosen, the field will be erased.
+    if ( current_task_number > 0 ) {
+        jQuery('input#selector').val( '' ) ;
+    }
 
     // If this task has already been completed, insert the selector into the input field.
     if ( correct_answers[task_number] ) {
         jQuery('input#selector').val( correct_answers[task_number] ) ;
     }
+
+    current_task_number = task_number ;
 
 }
 
@@ -178,5 +187,29 @@ function comma_cleanup ( string ) {
 
     // Re-assemble the parts of the selector.
     return new_string.join(', ') ;
+
+}
+
+/*
+Format the special characters so we remove spaces around them for easier comparison.
+*/
+function sanitize_selector_chars ( unsanitized_selector ) {
+    let characters = [ 
+        '+', // adjacent sibling
+        '>', // child selector
+        '~'  // general sibling
+    ] ;
+
+    let sanitized_selector = unsanitized_selector ;
+
+    sanitized_selector = sanitized_selector.replace (/ \+ /g, characters[0] ) ;
+    sanitized_selector = sanitized_selector.replace (/ \> /g, characters[1] ) ;
+    sanitized_selector = sanitized_selector.replace (/ ~ /g, characters[2] ) ;
+    
+    if ( debug ) {
+        console.log ('sanitized_selector:',sanitized_selector) ;
+    }
+
+    return sanitized_selector ;
 
 }

@@ -23,6 +23,27 @@ div#main {
 div#task_description {
     margin: 15px 10px ;
 }
+div#task_description p {
+    line-height: 1.5em ;
+}
+
+div#task_description p span::before {
+    content: '[Hint: ' ;
+}
+
+div#task_description p span::after {
+    content: ']' ;
+}
+
+div#task_description p span {
+    color: #aaa ;
+    /* font-size: 0.9em ; */
+    text-align: right;
+}
+
+div#task_description p span a {
+    color: #aaa ;
+}
 
 div#task_description p::before {
     content: "Instructions: " ;

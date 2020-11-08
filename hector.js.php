@@ -135,6 +135,14 @@ function validate_selector ( ) {
         else {
             // FIXME: do something other than an alert dialogue box.
             alert ( 'Not quite. Try again!' ) ;
+
+            // This is only an issue if the task has been completed, edited to be incorrect, and re-submitted. 
+            jQuery ( 'div#tasks p.task_' + current_task_number ).removeClass ( 'completed' ) ;
+            // And remove it from the list of correct answers, if needed.
+            if ( correct_answers[current_task_number] ) {
+                correct_answers[current_task_number] = '' ;
+            }
+
             // Clear the field? Eh, no, leave it alone.
             // In fact, maybe we save and list the history of incorrect attempts.
             if ( debug ) {
@@ -166,7 +174,11 @@ function choose_task ( task_number ) {
 
     // First usage: replace the placeholder instructional text with the requested task description.
     // Subsequent usages: replace the existing task description with the requested task description.
-    jQuery('div#task_description p').html ( tasks[task_number].description ) ;
+    let task_description = tasks[task_number].description ;
+    if ( tasks[task_number].help != '' ) {
+        task_description += ' <span class="help">' + tasks[task_number].help + '</span>' ;
+    }
+    jQuery('div#task_description p').html ( task_description ) ;
 
     // Unhighlight all lines in the source code.
     jQuery('div#code div#code_browser p.source').removeClass('highlighted_source') ;

@@ -1,0 +1,68 @@
+html lang="en"
+	head
+		title
+		meta charset="utf-8"
+		link href="hector.css"
+	body
+		header
+			section id="logo"
+				div class="logo_container"
+				div class="logo_container mobile"
+		nav
+			ul
+				li id="nav_234"
+				li id="nav_629" class="active"
+				li id="nav_532"
+				li id="nav_896"
+				li id="nav_415"
+		section id="main"
+			section id="left_sidebar" class="sidebar"
+				h1
+				ul
+					li
+					li
+					li
+					li
+			article
+				h1
+				p
+				p
+				h2
+				p
+				p class="pullquote"
+				p
+				h2
+				p
+				p
+				p class="pullquote"
+				p
+			section id="right_sidebar" class="sidebar"
+				h1
+				ul
+					li
+					li
+					li
+					li
+		footer
+			div
+				ul
+					li
+					li
+					li
+			div
+				ul
+					li
+					li
+					li
+			div
+				ul
+					li
+					li
+					li
+			div
+				ul
+					li
+					li
+					li
+			section id="copyright"
+				p

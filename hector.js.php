@@ -169,10 +169,7 @@ function choose_task ( task_number ) {
     }
 
     // Clear the input field.
-    // Without the if statement, if someone fills in the field before choosing a task, when a task is chosen, the field will be erased.
-    if ( current_task_number > 0 ) {
-        jQuery('input#selector').val( '' ) ;
-    }
+    jQuery('input#selector').val( '' ) ;
 
     // If this task has already been completed, insert the selector into the input field.
     if ( correct_answers[task_number] ) {

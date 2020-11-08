@@ -51,72 +51,86 @@ foreach ( $tasks_json->tasks as $task ) {
 let correct_answers = [] ;
 
 jQuery(document).ready ( function ( ) {
+    
+    // Attach keypress listener to input field to detect pressing the Return key.
+    jQuery('input#selector').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if ( keycode == '13' ) { // enter key
+            validate_selector ( ) ;
+        }
+    });
 
-    // attach on click listener to validate button
+    // Attach on click listener to validate button.
     jQuery('input#validate').on('click', function (event) {
 
-        if ( current_task_number >= 0 ) {
-            if ( debug ) {
-                console.log ( 'validate button clicked') ;
-            }
+        validate_selector ( ) ;
 
-            let user_selector = jQuery('input#selector').val() ;
-            if ( debug ) {
-                console.log ( 'user selector:', user_selector ) ;
-            }
-
-            if (! user_selector ) {
-                alert ('The selector field was empty.') ;
-                return false ;
-            }
-
-
-
-            // https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
-            // Condense all spaces into one space from user input, and lowercase the input. And strip whitespace.
-            user_selector = user_selector.toLowerCase().replace(/  +/g, ' ').trim() ;
-            // Sanitize special selector characters.
-            user_selector = sanitize_selector_chars ( user_selector ) ;
-
-            // replace ' + ' with '+' and ' > ' with '>'
-            if ( debug ) {
-                console.log ('user_selector:',user_selector) ;
-            }
-
-            // Condense all spaces into one space from the correct answer, and lowercase the correct answer. And strip whitespace.
-            let correct_answer = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ;
-            // Sanitize special selector characters.
-            correct_answer = sanitize_selector_chars ( correct_answer ) ;
-            if ( debug ) {
-                console.log ('correct_answer:',correct_answer) ;
-            }
-
-            user_selector = comma_cleanup ( user_selector ) ;
-            correct_answer = comma_cleanup ( correct_answer ) ;
-
-            // Correct answer.
-            if ( user_selector == correct_answer ) {
-                // FIXME: create an animated green checkmark in the center of the screen.
-                alert ( "That's correct. Nice job!" ) ;
-                correct_answers[current_task_number] = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ; // This is the nicely formatted version, with appropriate spacing.
-                // Change the CSS class for the task to completed.
-                jQuery ( 'div#tasks p.task_' + current_task_number ).addClass ( 'completed' ) ;
-            }
-            // Incorrect answer.
-            else {
-                // FIXME: do something other than an alert dialogue box.
-                alert ( 'Not quite. Try again!' ) ;
-                // Clear the field? Eh, no, leave it alone.
-                // In fact, maybe we save and list the history of incorrect attempts.
-            }
-
-        }
-        else {
-            alert ('Please choose a task first.') ;
-        }
     } ) ;
 
 } ) ;
+
+/*
+Validate the selector.
+*/
+function validate_selector ( ) {
+    if ( current_task_number >= 0 ) {
+        if ( debug ) {
+            console.log ( 'validate button clicked') ;
+        }
+
+        let user_selector = jQuery('input#selector').val() ;
+        if ( debug ) {
+            console.log ( 'user selector:', user_selector ) ;
+        }
+
+        if (! user_selector ) {
+            alert ('The selector field was empty.') ;
+            return false ;
+        }
+
+        // https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
+        // Condense all spaces into one space from user input, and lowercase the input. And strip whitespace.
+        user_selector = user_selector.toLowerCase().replace(/  +/g, ' ').trim() ;
+        // Sanitize special selector characters.
+        user_selector = sanitize_selector_chars ( user_selector ) ;
+
+        // replace ' + ' with '+' and ' > ' with '>'
+        if ( debug ) {
+            console.log ('user_selector:',user_selector) ;
+        }
+
+        // Condense all spaces into one space from the correct answer, and lowercase the correct answer. And strip whitespace.
+        let correct_answer = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ;
+        // Sanitize special selector characters.
+        correct_answer = sanitize_selector_chars ( correct_answer ) ;
+        if ( debug ) {
+            console.log ('correct_answer:',correct_answer) ;
+        }
+
+        user_selector = comma_cleanup ( user_selector ) ;
+        correct_answer = comma_cleanup ( correct_answer ) ;
+
+        // Correct answer.
+        if ( user_selector == correct_answer ) {
+            // FIXME: create an animated green checkmark in the center of the screen.
+            alert ( "That's correct. Nice job!" ) ;
+            correct_answers[current_task_number] = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ; // This is the nicely formatted version, with appropriate spacing.
+            // Change the CSS class for the task to completed.
+            jQuery ( 'div#tasks p.task_' + current_task_number ).addClass ( 'completed' ) ;
+        }
+        // Incorrect answer.
+        else {
+            // FIXME: do something other than an alert dialogue box.
+            alert ( 'Not quite. Try again!' ) ;
+            // Clear the field? Eh, no, leave it alone.
+            // In fact, maybe we save and list the history of incorrect attempts.
+        }
+
+    }
+    else {
+        alert ('Please choose a task first.') ;
+    }
+}
 
 /*
 Choose a task.

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hector the selector</title>
-    <link rel="stylesheet" href="hector.css" tyep="text/css">
+    <link rel="stylesheet" href="hector.css" type="text/css">
 </head>
 <body>
     <!-- <div id="minimap"></div> -->

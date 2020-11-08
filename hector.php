@@ -77,7 +77,7 @@
         </div>
 
     </div>
-    <p class="beta_tester">Thanks to Chloe A. for beta testing.</p>
+    <p class="beta_tester">Thanks to Chloe A. for beta testing and Diana G. for conceptual input.</p>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -21,7 +21,7 @@ if ( debug ) {
 }
 
 // Global variable used in multiple functions.
-let current_task_number = false ;
+let current_task_number = -1 ;
 
 // create an array with the task numbers, line numbers, and correct selector
 let tasks = [] ; // new empty array of tasks
@@ -55,7 +55,7 @@ jQuery(document).ready ( function ( ) {
     // attach on click listener to validate button
     jQuery('input#validate').on('click', function (event) {
 
-        if ( current_task_number != false ) {
+        if ( current_task_number >= 0 ) {
             if ( debug ) {
                 console.log ( 'validate button clicked') ;
             }
@@ -64,18 +64,29 @@ jQuery(document).ready ( function ( ) {
             if ( debug ) {
                 console.log ( 'user selector:', user_selector ) ;
             }
+
+            if (! user_selector ) {
+                alert ('The selector field was empty.') ;
+                return false ;
+            }
+
+
+
             // https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space
-            // condense all spaces into one space from user input, and lowercase the input.
-            user_selector = user_selector.toLowerCase().replace(/  +/g, ' ') ;
+            // Condense all spaces into one space from user input, and lowercase the input. And strip whitespace.
+            user_selector = user_selector.toLowerCase().replace(/  +/g, ' ').trim() ;
             if ( debug ) {
                 console.log ('user_selector:',user_selector) ;
             }
 
-            // condense all spaces into one space from the correct answer, and lowercase the correct answer.
-            let correct_answer = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ') ;
+            // Condense all spaces into one space from the correct answer, and lowercase the correct answer. And strip whitespace.
+            let correct_answer = tasks[current_task_number].selector.toLowerCase().replace(/  +/g, ' ').trim() ;
             if ( debug ) {
                 console.log ('correct_answer:',correct_answer) ;
             }
+
+            user_selector = comma_cleanup ( user_selector ) ;
+            correct_answer = comma_cleanup ( correct_answer ) ;
 
             // Correct answer.
             if ( user_selector == correct_answer ) {
@@ -101,6 +112,9 @@ jQuery(document).ready ( function ( ) {
 
 } ) ;
 
+/*
+Choose a task.
+*/
 function choose_task ( task_number ) {
 
     current_task_number = task_number ;
@@ -143,3 +157,26 @@ function choose_task ( task_number ) {
 
 }
 
+/* 
+Clean up selectors that have commas in them.
+This will standardize their format.
+*/
+function comma_cleanup ( string ) {
+
+    // Does it contain a comma? If not, we're done.
+    if ( ! string.indexOf(',') ) {
+        return string ;
+    }
+
+    string_parts = string.split( ',' ) ;
+
+    // Loop through selector components and remove starting and ending whitespace.
+    let new_string = [] ;
+    for ( string_index = 0 ; string_index < string_parts.length ; string_index++ ) {
+        new_string[string_index] = string_parts[string_index].trim() ;
+    }
+
+    // Re-assemble the parts of the selector.
+    return new_string.join(', ') ;
+
+}

@@ -58,7 +58,7 @@
         {
             "task": "Create a child selector for <em>before</em> the paragraph of the section with an ID of \"copyright\".",
             "help": "use the pseudo-element <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/::before' target='_blank'>::before</a>.",
-            "selector": "section#copyright p::before",
+            "selector": "section#copyright > p::before",
             "line_numbers": ["68"]
         }
     ]

@@ -23,19 +23,19 @@
             "task": "Create a child selector for a list item with an ID of \"nav_234\".",
             "help": "",
             "selector": "ul > li#nav_234",
-            "line_numbers": [""]
+            "line_numbers": ["13"]
         },
         {
             "task": "Create a descendent selector for the li with a class of \"active\" in the nav element.",
             "help": "",
             "selector": "nav li.active",
-            "line_numbers": [""]
+            "line_numbers": ["14"]
         },
         {
             "task": "Create a child selector for the heading 1 elements in the sections with a class of \"sidebar\".",
             "help": "",
             "selector": "section.sidebar > h1",
-            "line_numbers": [""]
+            "line_numbers": ["20","40"]
         },
         {
             "task": "Create a selector for paragraph elements that are children of an article element which itself is a child of a section element.",
@@ -51,15 +51,15 @@
         },
         {
             "task": "Create a child selector for the fifth paragraph element of the article element.",
-            "help": "Use the pseudo-class <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child' target='_blank'>:nth-child()</a>.",
+            "help": "use the pseudo-class <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child' target='_blank'>:nth-child()</a>.",
             "selector": "article > p:nth-child(5)",
             "line_numbers": ["33"]
         },
         {
             "task": "Create a child selector for <em>before</em> the paragraph of the section with an ID of \"copyright\".",
-            "help": "Use the pseudo-element <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/::before' target='_blank'>::before</a>.",
+            "help": "use the pseudo-element <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/::before' target='_blank'>::before</a>.",
             "selector": "section#copyright p::before",
-            "line_numbers": [""]
+            "line_numbers": ["68"]
         }
     ]
 }

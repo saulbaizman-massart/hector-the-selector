@@ -179,7 +179,7 @@ function choose_task ( task_number ) {
     if ( tasks[task_number].description ) {
         let task_description = tasks[task_number].description ;
         if ( tasks[task_number].help != '' ) {
-            task_description += ' <span class="help">' + tasks[task_number].help + '</span>' ;
+            task_description += ' <span id="hidden_clue" onmouseover="reveal_clue(' + task_number + ');">' + 'mouse over this text to reveal a clue' + '</span>' ;
         }
         jQuery('div#task_description p').html ( task_description ) ;
     }
@@ -267,5 +267,18 @@ function sanitize_selector_chars ( unsanitized_selector ) {
     }
 
     return sanitized_selector ;
+
+}
+
+/* 
+Reveal task clue.
+*/
+function reveal_clue ( task_number ) { 
+
+    if ( debug ) {
+        console.log ('moused over clue') ;
+    }
+
+    jQuery('span#hidden_clue').html ( tasks[task_number].help ) ;
 
 }

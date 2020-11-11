@@ -131,12 +131,31 @@ div#code div#code_browser {
     border-top: 1px solid #eee ;
     border-right: 1px solid #eee ;
     border-bottom: 1px solid #eee ;
+    padding-left: 1rem ;
 }
 
-div#code div#code_browser p.highlighted_source {
+div#code div#code_browser p.source.highlighted_source {
     background-color: rgb(20, 180, 42);
-    color: #fff ;
+    color: rgba(255, 255, 255, 1);
     font-weight: bold;
+}
+
+div#code div#code_browser p.source.highlighted_source_ancestor {
+    background-color: rgba(20, 180, 42, .3);
+    /* color: rgba(255, 255, 255, 1); */
+    /* font-weight: bold; */
+}
+
+div#code div#code_browser p.line_number.highlighted_source {
+    background-color: rgb(20, 180, 42);
+    color: rgba(255, 255, 255, .6);
+    font-weight: bold;
+}
+
+div#code div#code_browser p.line_number.highlighted_source_ancestor {
+    background-color: rgba(20, 180, 42, .3);
+    /* color: rgba(255, 255, 255, .6); */
+    /* font-weight: bold; */
 }
 
 div#code_browser p {
@@ -154,7 +173,7 @@ div#code_browser p {
 div#code_browser p.line_number {
     /* font-size: 0.9em ; */
     color: #aaa ;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 div#code div#code_browser p.indentation_level_0 {

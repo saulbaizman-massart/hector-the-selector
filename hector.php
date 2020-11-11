@@ -64,9 +64,15 @@ DO NOT MODIFY THIS REPL. If you do, I will be very sad.
                     $line = trim ($line) ; // remove all whitespace
                     $paragraph_classes = [] ;
                     $paragraph_classes[] = 'source' ;
-                    $paragraph_classes[] = sprintf('line_%s',$line_number );
+                    $paragraph_classes[] = sprintf('line_%s', $line_number );
                     $paragraph_classes[] = sprintf('indentation_level_%s',$tab_count );
-                    printf ('<p class="line_number">%1$s</p><p class="%4$s"> %2$s</p>', $line_number, $line, $tab_count, implode ( ' ', $paragraph_classes ) ) ;
+                    printf ('<p class="line_number line_%5$s">%1$s</p><p class="%4$s"> %2$s</p>', 
+                    $line_number, 
+                    $line, 
+                    $tab_count, 
+                    implode ( ' ', $paragraph_classes ),
+                    $line_number
+                    ) ;
                     print "\n" ;
                     
                     $line_number++ ;
@@ -77,7 +83,7 @@ DO NOT MODIFY THIS REPL. If you do, I will be very sad.
             </div>
 
             <div id="task_description">
-                <p>Click a task number in the left column.</p>
+                <p>Create a selector for the highlighted element(s).</p>
             </div>
 
             <div id="input_fields">

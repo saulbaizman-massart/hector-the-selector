@@ -34,6 +34,7 @@ foreach ( $tasks_json->tasks as $task ) {
     $task_description = $task->task ;
     $selector = $task->selector ;
     $lines = $task->line_numbers ;
+    $ancestral_lines = $task->ancestral_line_numbers ;
     if ( $task->help ) {
         $help_text = $task->help ;
     }
@@ -42,12 +43,13 @@ foreach ( $tasks_json->tasks as $task ) {
     }
 
     printf ( 
-        'tasks[%1$d] = { "description": "%2$s", "selector": "%3$s", "lines": [ %4$s ], "help": "%5$s" } ; ' . PHP_EOL, 
+        'tasks[%1$d] = { "description": "%2$s", "selector": "%3$s", "lines": [ %4$s ], "ancestral_lines": [ %6$s ], "help": "%5$s" } ; ' . PHP_EOL, 
         $task_counter, // array index 
         str_replace('"', '\"', $task_description ), // description, with double quotes escaped
         str_replace('"', '\"', $selector ), // selector (answer)
         implode ( ',', $lines ), // array of line numbers
-        str_replace('"', '\"', $help_text )
+        str_replace('"', '\"', $help_text ),
+        implode ( ',', $ancestral_lines ), // array of line numbers
     ) ;
 
     $task_counter++ ;
@@ -174,14 +176,22 @@ function choose_task ( task_number ) {
 
     // First usage: replace the placeholder instructional text with the requested task description.
     // Subsequent usages: replace the existing task description with the requested task description.
-    let task_description = tasks[task_number].description ;
-    if ( tasks[task_number].help != '' ) {
-        task_description += ' <span class="help">' + tasks[task_number].help + '</span>' ;
+    if ( tasks[task_number].description ) {
+        let task_description = tasks[task_number].description ;
+        if ( tasks[task_number].help != '' ) {
+            task_description += ' <span class="help">' + tasks[task_number].help + '</span>' ;
+        }
+        jQuery('div#task_description p').html ( task_description ) ;
     }
-    jQuery('div#task_description p').html ( task_description ) ;
+    else {
+        // Default if there's no task description property.
+        jQuery('div#task_description p').html ( 'Create a selector for the highlighted element(s).' ) ;
+    }
+
 
     // Unhighlight all lines in the source code.
-    jQuery('div#code div#code_browser p.source').removeClass('highlighted_source') ;
+    jQuery('div#code div#code_browser p.source').removeClass('highlighted_source').removeClass('highlighted_source_ancestor') ;
+    jQuery('div#code div#code_browser p.line_number').removeClass('highlighted_source').removeClass('highlighted_source_ancestor') ;
 
     if ( debug ) {
         console.log ('line array:',tasks[task_number].lines) ;
@@ -191,6 +201,13 @@ function choose_task ( task_number ) {
     // Highlight the relevant lines in the source code.
     for ( line = 0 ; line < tasks[task_number].lines.length; line++) {
         jQuery('div#code div#code_browser p.source.line_'+tasks[task_number].lines[line]).addClass('highlighted_source') ;
+        jQuery('div#code div#code_browser p.line_number.line_'+tasks[task_number].lines[line]).addClass('highlighted_source') ;    
+    }
+
+    // Highlight the relevant ancestor lines in the source code.
+    for ( ancestor_line = 0 ; ancestor_line < tasks[task_number].ancestral_lines.length; ancestor_line++) {
+        jQuery('div#code div#code_browser p.source.line_'+tasks[task_number].ancestral_lines[ancestor_line]).addClass('highlighted_source_ancestor') ;
+        jQuery('div#code div#code_browser p.line_number.line_'+tasks[task_number].ancestral_lines[ancestor_line]).addClass('highlighted_source_ancestor') ;    
     }
 
     // Clear the input field.

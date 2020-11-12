@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <!-- TODO handle body tag?? -->
+<head>
+    <style>
+        .js-highlighted {
+            background-color: blue;
+        }
+        h1,h2,h3,h4,p,span,b {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function handleUpdateSelector() {
+            let selectorVal = document.getElementById("selector").value;
+            let elList = document.querySelectorAll(selectorVal);
+
+            let oldElList = document.querySelectorAll(".js-highlighted");
+            oldElList.forEach(function(el) {
+                el.classList.remove("js-highlighted");
+            })
+            elList.forEach(function(el) {
+                if(!el.dataset.ignore) {
+                    el.classList.add("js-highlighted");
+                }
+            });
+        }
+    </script>
+    <form onsubmit="return false;" data-ignore="true">
+        <label data-ignore="true">
+          Enter Selector:
+          <input data-ignore="true" id="selector" placeholder="div p" type="text" name="selector" />
+        </label>
+        <button data-ignore="true" onclick="handleUpdateSelector()">Select</button>
+    </form>
+
+&lt;body&gt;
+    <h1>
+        &lt;h1&gt;
+
+        &lt;/h1&gt;
+    </h1>
+    <p>
+        &lt;p&gt;
+        This is a paragraph with <b>&lt;b&gt;bold&lt;/b&gt;</b> text.
+        &lt;/p&gt;
+    </p>
+    <p>
+        &lt;p&gt;
+        This is a paragraph with a
+        <span class="highlight">&lt;span class=&quot;highlight&quot;&gt;Yeah!&lt;/span&gt;</span>
+        text.
+        &lt;/p&gt;
+    </p>
+    <p>
+        &lt;p&gt;
+        This is a paragraph with a
+        <span>&lt;span&gt;normal!&lt;/span&gt;</span>
+        text.
+        &lt;/p&gt;
+    </p>
+&lt;/body&gt;
+</body>
+</html>

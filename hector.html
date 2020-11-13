@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <!-- TODO handle body tag?? -->
+<head>
+    <style>
+        .js-highlighted {
+            background-color: blue;
+        }
+        * > *, * > * > *
+         { margin-left: 4rem }
+        /* * > * > * { margin-left: 8rem } */
+        h1,h2,h3,h4,p,span,b {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        [data-ignore='true'] {
+            margin-left: 0;
+        }
+        html, body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function handleUpdateSelector() {
+            let selectorVal = document.getElementById("selector").value;
+            let elList = document.querySelectorAll(selectorVal);
+
+            let oldElList = document.querySelectorAll(".js-highlighted");
+            oldElList.forEach(function(el) {
+                el.classList.remove("js-highlighted");
+            })
+            elList.forEach(function(el) {
+                if(!el.dataset.ignore) {
+                    el.classList.add("js-highlighted");
+                }
+            });
+        }
+    </script>
+    <form onsubmit="return false;" data-ignore="true">
+        <label data-ignore="true">
+          Enter Selector:
+          <input data-ignore="true" id="selector" placeholder="div p" type="text" name="selector" />
+        </label>
+        <button data-ignore="true" onclick="handleUpdateSelector()">Select</button>
+    </form>
+
+    body
+    <h1 class="i1">h1</h1>
+    <section>section
+        <div>div
+            <p>p</p>
+        </div>
+        <div>div</div>
+    </section>
+    <p class="i2">p
+    </p>
+    <span class="highlight">span class=&quot;highlight&quot;&gt;Yeah!</span>
+</body>
+</html>

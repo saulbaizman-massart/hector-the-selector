@@ -3,34 +3,75 @@
     <!-- TODO handle body tag?? -->
 <head>
     <style>
-        .js-highlighted {
-            background-color: blue;
+        * {
+            font-family: Helvetica, Arial, sans-serif;
+            line-height: 1.4em;
+            font-size: 24px;
         }
-        * > *, * > * > *
-         { margin-left: 4rem }
-        /* * > * > * { margin-left: 8rem } */
-        h1,h2,h3,h4,p,span,b {
-            font-size: 1rem;
+        /* The universal selector never tasted so good. */
+        * > *, * > * > *, * > * > * > * { 
+            margin-left: 4rem ;
+            color: initial ;
+            background-color: initial ;
+        }
+
+        /* Format all elements uniformly. */
+        h1, h2, h3, h4, p, span, b {
             font-weight: normal;
         }
+
+        /* Remove margin from form elements. */
         [data-ignore='true'] {
             margin-left: 0;
         }
+
+        /* Remove margin. */
         html, body {
             margin: 0;
         }
+
+        /* The elements matching the user's input (selector) will be formatted with the class below. */
+        .js-highlighted {
+            /*
+            background-color: rgb(20, 180, 42);
+            color: rgb(255, 255, 255);
+            */
+            /* font-weight: bold;  */
+            
+            color: rgb(20, 180, 42);
+            /* border-top: 2px solid green ; */
+        }
+
+        .js-highlighted::before {
+            /* width: 5px ; */
+            /* height: 5px ; */
+            color: rgb(20, 180, 42); ;
+            content: '▸ ';
+        }        
+
+        /*
+        .js-highlighted::after {
+            color: rgb(20, 180, 42); ;
+            content: ' * ';
+        }
+        */
     </style>
 </head>
 <body>
     <script>
         function handleUpdateSelector() {
+            // The user's input (the selector).
             let selectorVal = document.getElementById("selector").value;
+            // The array of elements on the page that match the selector.
             let elList = document.querySelectorAll(selectorVal);
 
+            // Remove the "js-highlighted" class from any element that it may be assigned to.
             let oldElList = document.querySelectorAll(".js-highlighted");
             oldElList.forEach(function(el) {
                 el.classList.remove("js-highlighted");
-            })
+            }) ;
+
+            // Add the "js-highlighted" class to any element matched by the user's input (selector).
             elList.forEach(function(el) {
                 if(!el.dataset.ignore) {
                     el.classList.add("js-highlighted");
@@ -41,21 +82,19 @@
     <form onsubmit="return false;" data-ignore="true">
         <label data-ignore="true">
           Enter Selector:
-          <input data-ignore="true" id="selector" placeholder="div p" type="text" name="selector" />
+          <input data-ignore="true" id="selector" placeholder="Enter selector" type="text" name="selector" />
         </label>
-        <button data-ignore="true" onclick="handleUpdateSelector()">Select</button>
+        <button data-ignore="true" onclick="handleUpdateSelector()">Go</button>
     </form>
 
     body
-    <h1 class="i1">h1</h1>
+    <h1>h1</h1>
     <section>section
         <div>div
             <p>p</p>
         </div>
         <div>div</div>
     </section>
-    <p class="i2">p
-    </p>
-    <span class="highlight">span class=&quot;highlight&quot;&gt;Yeah!</span>
+    <p>p</p>
 </body>
 </html>

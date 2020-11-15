@@ -1,23 +1,57 @@
+<!--
+TODO
++ add line numbers, if possible
++ scroll to first match
++ doesn't quite work with the universal selector as a child, grandchild, etc.
+-->
+
 <!DOCTYPE html>
 <html>
-    <!-- TODO handle body tag?? -->
 <head>
+    <title>hector the selector (v3)</title>
     <style>
         * {
             font-family: Helvetica, Arial, sans-serif;
-            line-height: 1.4em;
+            line-height: 50px;
             font-size: 24px;
         }
+
         /* The universal selector never tasted so good. */
         * > *, * > * > *, * > * > * > * { 
             margin-left: 4rem ;
             color: initial ;
             background-color: initial ;
+            transition: color .3s ease ;
+        }
+
+        * > *::before, * > * > *::before, * > * > * > *::before { 
+            /* color: rgb(20, 180, 42); */
+            color: rgb(255, 255, 255);
+            content: '★ ';
+            font-size: 0.7em ;
+            transition: color .3s ease ;
+            vertical-align: top;
+        }
+
+        /* Disable arrow on specific elements. */
+        body::before, form::before, form *::before, count#match_count::before {
+            content: none;
+        }
+
+        ul {
+            list-style-type: none ;
+            padding-left: 0 ;
+        }
+        
+        ul li {
+            line-height: 50px;
         }
 
         /* Format all elements uniformly. */
-        h1, h2, h3, h4, p, span, b {
+        h1, h2, h3, h4, p, ul, span, b {
             font-weight: normal;
+            margin-top: 0 ;
+            margin-bottom: 0 ;
         }
 
         /* Remove margin from form elements. */
@@ -26,8 +60,31 @@
         }
 
         /* Remove margin. */
-        html, body {
+        html {
             margin: 0;
+        }
+
+        body {
+            margin: 30px ;
+            margin-top: 170px ;
+        }
+
+        body::after {
+            /* FIXME: this text is faux horizontally centered. */
+            /* Could we add the full "hector the selector" phrase without resorting to an image? 
+            Well, we could use encoded data and add it as a proper background image to the <body> element. */
+            content: 'hector' ;
+            font-weight: 400;
+            display: block;
+            position: fixed ;
+            z-index: -1 ;
+            font-size: 300px ;
+            color: rgba(218, 218, 218, 0.3) ;
+            top: 450px;
+            left: 300px ;
+            transform: rotate(-45deg) ;
+            filter: blur(4px);
+
         }
 
         /* The elements matching the user's input (selector) will be formatted with the class below. */
@@ -37,24 +94,149 @@
             color: rgb(255, 255, 255);
             */
             /* font-weight: bold;  */
-            
             color: rgb(20, 180, 42);
             /* border-top: 2px solid green ; */
         }
 
         .js-highlighted::before {
-            /* width: 5px ; */
+            /* width: 25px ; */
             /* height: 5px ; */
-            color: rgb(20, 180, 42); ;
-            content: '▸ ';
-        }        
+            color: rgb(20, 180, 42);
+            content: '★ ';
+            font-size: 0.7em ;
+            /* display: block; */
+            /* background-color: rgb(20, 180, 42); */
+        }
+
+        count#match_count {
+            /* width: 100px ; */
+            /* height: 100px ; */
+            padding: 30px 25px;
+            position: fixed ;
+            font-size: 30px ;
+            top: 0 ;
+            right: 0 ;
+            /* background-color: rgb(238, 238, 238); */
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        count#match_count::after {
+            /* content: 'matching elements' ; */
+            content: attr(data-before) ;
+            width: 65px ;
+            display: block ;
+            color: black ;
+            font-weight: bold ;
+            font-size: 11px ;
+            text-transform: uppercase ;
+            line-height: 1.2em ;
+        }
+
+        form {
+            position: fixed ;
+            top: 0 ;
+            left: 0 ;
+            background-color: rgb(238, 238, 238) ;
+            width: 2300px ;
+            padding: 46px 25px ;
+            margin-bottom: 20px ;
+            border-bottom: 1px solid rgba(0,0,0,.2);
+            /* box-shadow: 0 5px 8px 5px rgba(0,0,0,.1); */
+            /* border-radius: 5px; */
+            /* https://www.youtube.com/watch?v=QY7Rj8aZcZk */
+            /* clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%) ; */
+        }
+
+        /* form::after {
+            display: block;
+            content: '';
+            width: 50% ;
+            border-bottom: 2px solid #eee ;
+            padding-bottom: 20px ;
+            margin-bottom: 20px ;
+        } */
+
+        input#selector, button#go {
+            background-color: rgb(255, 255, 255);
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        input#selector {
+            padding: 3px 45px 3px 9px ;
+            width: 415px ;
+            /* opacity: .2; */
+        }
+
+        button#go {
+            margin-left: 7px ;
+            padding: 3px 14px;
+            background-color: rgb(150,150,150);
+            color: white ;
+            /* font-size: 12px ; */
+            transition: background-color .3s ease ;
+        }
+
+        button#go:hover, button#go:focus {
+            cursor: pointer;
+            background-color: rgb(20, 180, 42) ;
+        }
+
+        input#selector::placeholder {
+            color: rgb(187, 187, 187) ;
+        }
+
+        div#text_input_container {
+            position: relative;
+        }
+
+        div#clear {
+            position: absolute ;
+            left: 435px ;
+            top: 4px ;
+            /* z-index: 1000; */
+            /* background-color: red;
+            border-radius: 50% ;
+            width: 40px ;
+            height: 40px ; */
+        }
+
+        div#clear a {
+            text-decoration: none;
+            color: rgb(187, 187, 187);
+            /* padding: 10px ; */
+        }
+
+        div#clear a:hover, div#clear a:focus {
+            color: rgb(127, 127, 127) ;
+        }
+
+        .match_positive {
+            color: green ;
+        }
+
+        .match_zero {
+            color: black;
+        }
+
+        /*
+        .js-highlighted:hover::before {
+            color: red; 
+        }
+        */
 
         /*
         .js-highlighted::after {
             color: rgb(20, 180, 42); ;
-            content: ' * ';
+            display: inline;
+            background-color: rgb(20, 180, 42);
+            content: ' ';
         }
         */
+        /* .js-highlighted::after {
+        animation: changeLetter 3s linear infinite alternate
+        } */
+
     </style>
 </head>
 <body>
@@ -64,6 +246,8 @@
             let selectorVal = document.getElementById("selector").value;
             // The array of elements on the page that match the selector.
             let elList = document.querySelectorAll(selectorVal);
+            let matched_element_count = elList.length ;
+            // console.log ('matching elements:', matched_element_count ) ;
 
             // Remove the "js-highlighted" class from any element that it may be assigned to.
             let oldElList = document.querySelectorAll(".js-highlighted");
@@ -72,29 +256,165 @@
             }) ;
 
             // Add the "js-highlighted" class to any element matched by the user's input (selector).
+            let valid_match_element_count = 0 ;
             elList.forEach(function(el) {
                 if(!el.dataset.ignore) {
+                    console.log (selectorVal+':',el) ;
                     el.classList.add("js-highlighted");
+                    valid_match_element_count++ ;
                 }
             });
+
+            // https://stackoverflow.com/questions/10495243/how-change-content-value-of-pseudo-before-element-by-javascript/42000085#42000085
+            let match_count_element = document.querySelector('count#match_count');
+
+            // Update label from "elements" to "element" if there's only one match.
+            if ( valid_match_element_count == 1 ) {
+                // Just one.
+                match_count_element.setAttribute('data-before','matching element');
+            }
+            else {
+                match_count_element.setAttribute('data-before','matching elements');
+            }
+            if ( valid_match_element_count == 0 ) {
+                alert ('There were no matching elements for "' + selectorVal + '". Please double-check your selector.') ;
+            }
+
+            // Scroll to first match. FIXME: will this work with divs because of the two I'm using in the form?
+            /*
+            if ( valid_match_element_count > 0 ) {
+                var bounding_box = elList[0].getBoundingClientRect();
+                // console.log (rect) ;
+                // window.scrollTo(0, bounding_box.top+"px")
+                window.scrollTo({
+                top: bounding_box.top+150, // FIXME. This isn't working correctly. Use scrollBy?
+                // top: 500,
+                left: 0,
+                behavior: 'smooth'
+                });
+            }
+            */
+
+            let match_count = document.querySelector("#match_count") ;
+
+            match_count.textContent = valid_match_element_count ;
+            
+            // Add class to big number to change its color.
+            /*
+            if ( valid_match_element_count > 0 ) {
+                match_count.classList.remove("match_zero") ;
+                match_count.classList.add("match_positive") ;
+            }
+            else {
+                match_count.classList.remove("match_positive") ;
+                match_count.classList.add("match_zero") ;
+            }
+            */
+
         }
     </script>
     <form onsubmit="return false;" data-ignore="true">
+        <!-- Use a fake HTML element here instead of a div? -->
+        <div data-ignore="true" id="text_input_container">
         <label data-ignore="true">
-          Enter Selector:
-          <input data-ignore="true" id="selector" placeholder="Enter selector" type="text" name="selector" />
+          <input data-ignore="true" id="selector" placeholder="Enter a selector and click Go" type="text" name="selector" autofocus/>
         </label>
-        <button data-ignore="true" onclick="handleUpdateSelector()">Go</button>
+        <!-- Use a fake HTML element here instead of a div? -->
+        <div id="clear" data-ignore="true"><a data-ignore="true" href="javascript:location.reload()">✕</a></div>
+        <button data-ignore="true" id="go" onclick="handleUpdateSelector()">Go</button>
+        </div>
     </form>
 
     body
-    <h1>h1</h1>
-    <section>section
-        <div>div
-            <p>p</p>
-        </div>
-        <div>div</div>
+    <header>header
+        <nav>nav 
+            <div id="logo">
+                div id="logo"
+            </div>
+            <ul id="primary_navigation" class="navigation">
+                ul id="primary_navigation" class="navigation"
+                <li class="inactive has_no_children">li class="inactive has_no_children"</li>
+                <li class="inactive has_children">li class="inactive has_children"</li>
+                <li class="active has_no_children">li class="active has_no_children"</li>
+                <li class="inactive has_children">li class="inactive has_children"</li>
+                <li class="inactive has_children">li class="inactive has_children"</li>
+            </ul>
+            <div id="login" class="call_to_action">div id="login" class="call_to_action"
+            </div>
+
+        </nav>
+    </header>
+    <section class="interstitial">section class="interstitial"
+        <section id="sony" class="advertisement left">section id="sony" class="advertisement left"
+            <div>div
+                <h1>h1</h1>
+                <p>p</p>
+            </div>
+            <div>div</div>
+        </section>
+        <section id="upsell" class="call_to_action middle">section id="upsell" class="call_to_action middle"
+            <div>div
+                <h1>h1</h1>
+                <p>p</p>
+            </div>
+            <div>div</div>
+        </section>
+        <section id="apple" class="advertisement right">section id="apple" class="advertisement right"
+            <div>div
+                <h1>h1</h1>
+                <p>p</p>
+            </div>
+            <div>div</div>
+        </section>
     </section>
-    <p>p</p>
+    <article class="cover_story" data-article-id="10784">article class="cover_story" data-article-id="10784"
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <p class="introduction">p class="introduction"</p>
+        <p>p</p>
+        <p>p</p>
+        <p class="pullquote">p class="pullquote"</p>
+        <p>p</p>
+        <div class="diagram">div class="diagram"</div>
+        <h2>h2</h2>
+        <p>p</p>
+        <p class="pullquote">p class="pullquote"</p>
+        <p>p</p>
+        <div class="diagram">div class="diagram"</div>
+        <p>p</p>
+        <p class="conclusion">p class="conclusion"</p>
+    </article>
+    <article class="story" data-article-id="645337">article class="story" data-article-id="645337"
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <p class="introduction">p class="introduction"</p>
+        <p>p</p>
+        <div class="diagram">div class="diagram"</div>
+        <p>p</p>
+        <h2>h2</h2>
+        <p>p</p>
+        <p>p</p>
+        <div class="diagram">div class="diagram"</div>
+        <p>p</p>
+        <p class="conclusion">p class="conclusion"</p>
+    </article>
+    <article class="blind_item">article class="blind_item"
+        <h1>h1</h1>
+        <p class="introduction gossip">p class="introduction gossip"</p>
+        <p class="conclusion gossip">p class="conclusion gossip"</p>
+    </article>
+    <footer>footer
+        <ul id="quicklinks" class="navigation">ul id="quicklinks" class="navigation"
+            <li class="call_to_action">li class="call_to_action"</li>
+            <li>li</li>
+            <li>li</li>
+            <li>li</li>
+            <li>li</li>
+        </ul>
+
+    </footer>
+
+    <!-- Note: "count" is not a valid HTML element. The browser treats it as a generic block element. We are using this fake element so that we can use "real" elements on the rest of the page and it doesn't appear in the tally of matching selectors. -->
+    <count id="match_count" data-ignore="true" data-before="matching elements">0</count>
 </body>
 </html>

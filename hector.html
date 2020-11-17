@@ -26,7 +26,7 @@ TODO
 
         * > *::before, * > * > *::before, * > * > * > *::before { 
             /* color: rgb(20, 180, 42); */
-            color: rgb(255, 255, 255);
+            color: rgba(255, 255, 255,0);
             content: '★ ';
             font-size: 0.7em ;
             transition: color .3s ease ;
@@ -34,7 +34,7 @@ TODO
         }
 
         /* Disable arrow on specific elements. */
-        body::before, form::before, form *::before, count#match_count::before, input_container#text_input_container::before, minimap::before, whatever::before {
+        body::before, form::before, form *::before, count#match_count::before, input_container#text_input_container::before, minimap::before, div#map::before {
             content: none;
         }
 
@@ -220,6 +220,34 @@ TODO
         }
 
         /*
+        minimap::before {
+            content: 'minimap' ;
+            display: block ;
+        }
+        */
+        
+        minimap {
+            border: 1px solid rgba(0,0,0,.2) ;
+            position: fixed; 
+            right: 10px; 
+            top: 170px;
+            width: 220px ;
+            height: 600px ;
+            padding: 5px ;
+            /* https://css-tricks.com/using-the-little-known-css-element-function-to-create-a-minimap-navigator/ */
+            /* https://developer.mozilla.org/en-US/docs/Web/CSS/element() */
+            /* Firefox only */
+            /* Note: the chosen element must be a real element, not a faux element. */
+            background: rgba(255,255,255,1) -moz-element(#map) no-repeat center / contain;
+            transition: transform .3s ease ;
+        }
+        /*
+        minimap:hover {
+            transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+        */
+
+        /*
         .js-highlighted:hover::before {
             color: red; 
         }
@@ -324,7 +352,7 @@ TODO
         <button data-ignore="true" id="go" onclick="handleUpdateSelector()">Go</button>
         </input_container>
     </form>
-
+<div id="map" data-ignore="true">
     body
     <header>header
         <nav>nav 
@@ -413,8 +441,10 @@ TODO
         </ul>
 
     </footer>
-
+</div>
     <!-- Note: "count" is not a valid HTML element. The browser treats it as a generic block element. We are using this fake element so that we can use "real" elements on the rest of the page and it doesn't appear in the tally of matching selectors. -->
     <count id="match_count" data-ignore="true" data-before="matching elements">0</count>
+    <minimap data-ignore="true" id="minimap"></minimap>
+
 </body>
 </html>

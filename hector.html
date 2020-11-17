@@ -34,7 +34,7 @@ TODO
         }
 
         /* Disable arrow on specific elements. */
-        body::before, form::before, form *::before, count#match_count::before {
+        body::before, form::before, form *::before, count#match_count::before, input_container#text_input_container::before, minimap::before, whatever::before {
             content: none;
         }
 
@@ -186,14 +186,14 @@ TODO
             color: rgb(187, 187, 187) ;
         }
 
-        div#text_input_container {
+        input_container#text_input_container {
             position: relative;
         }
 
-        div#clear {
+        x_icon#clear {
             position: absolute ;
             left: 435px ;
-            top: 4px ;
+            bottom: -12px ;
             /* z-index: 1000; */
             /* background-color: red;
             border-radius: 50% ;
@@ -201,13 +201,13 @@ TODO
             height: 40px ; */
         }
 
-        div#clear a {
+        x_icon#clear a {
             text-decoration: none;
             color: rgb(187, 187, 187);
             /* padding: 10px ; */
         }
 
-        div#clear a:hover, div#clear a:focus {
+        x_icon#clear a:hover, x_icon#clear a:focus {
             color: rgb(127, 127, 127) ;
         }
 
@@ -315,14 +315,14 @@ TODO
     </script>
     <form onsubmit="return false;" data-ignore="true">
         <!-- Use a fake HTML element here instead of a div? -->
-        <div data-ignore="true" id="text_input_container">
+        <input_container data-ignore="true" id="text_input_container">
         <label data-ignore="true">
           <input data-ignore="true" id="selector" placeholder="Enter a selector and click Go" type="text" name="selector" autofocus/>
         </label>
         <!-- Use a fake HTML element here instead of a div? -->
-        <div id="clear" data-ignore="true"><a data-ignore="true" href="javascript:location.reload()">✕</a></div>
+        <x_icon id="clear" data-ignore="true"><a data-ignore="true" href="javascript:location.reload()">✕</a></x_icon>
         <button data-ignore="true" id="go" onclick="handleUpdateSelector()">Go</button>
-        </div>
+        </input_container>
     </form>
 
     body

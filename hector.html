@@ -227,7 +227,6 @@ TODO
         */
         
         minimap {
-            border: 1px solid rgba(0,0,0,.2) ;
             position: fixed; 
             right: 10px; 
             top: 170px;
@@ -241,12 +240,19 @@ TODO
             background: rgba(255,255,255,1) -moz-element(#map) no-repeat center / contain;
             transition: transform .3s ease ;
         }
+
+        /* https://developer.mozilla.org/en-US/docs/Web/CSS/@supports */
+        @supports (background: element(#map)) or (background: -moz-element(#map)) {
+            /* fallback styles */
+            minimap {
+                border: 1px solid rgba(0,0,0,.2) ; /* Add border around minimap. */
+            }
+        }
         
         /* minimap:hover { */
             /* transform: scale(1.5); */ /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         /* } */
         
-
         /*
         .js-highlighted:hover::before {
             color: red; 

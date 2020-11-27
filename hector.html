@@ -68,24 +68,10 @@ TODO
         body {
             margin: 30px ;
             margin-top: 170px ;
-        }
-
-        body::after {
-            /* FIXME: this text is faux horizontally centered. */
-            /* Could we add the full "hector the selector" phrase without resorting to an image? 
-            Well, we could use encoded data and add it as a proper background image to the <body> element. */
-            content: 'hector' ;
-            font-weight: 400;
-            display: block;
-            position: fixed ;
-            z-index: -1 ;
-            font-size: 300px ;
-            color: rgba(218, 218, 218, 0.3) ;
-            top: 450px;
-            left: 300px ;
-            transform: rotate(-45deg) ;
-            filter: blur(4px);
-
+            background-image: url(hector-bg.svg) ;
+            background-position: top center ;
+            background-repeat: no-repeat ;
+            background-size: 1100px ;
         }
 
         /* The elements matching the user's input (selector) will be formatted with the class below. */

@@ -1,4 +1,4 @@
-# hector the selector (v2)
+# hector the selector (v3)
 
 This is a tiny interactive web application to test students' knowledge of CSS selectors.
 
